@@ -12,5 +12,7 @@ HTTP API provides an HTTP endpoint
 Routes are a way to send incoming API requests to backend resources. Routes consist of two parts: an HTTP method and a resource path, for example, GET /items. 
 
 #### Create an integration
+You create an integration to connect a route to backend resources.
+
 
 #### Attach your integration to routes 
