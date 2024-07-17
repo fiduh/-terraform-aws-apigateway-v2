@@ -9,10 +9,14 @@ HTTP APIs enable you to create RESTful APIs with lower latency and are designed 
 HTTP API provides an HTTP endpoint
 
 #### Create routes 
-Routes are a way to send incoming API requests to backend resources. Routes consist of two parts: an HTTP method and a resource path, for example, GET /items. 
+Routes are a way to send incoming API requests to backend resources. Routes consist of two parts: an HTTP method and a resource path, for example, GET /items. The ANY method matches all methods that you haven't defined for a resource. $default route acts as a catch-all for requests that don't match any other routes.
 
 #### Create an integration
 You create an integration to connect a route to backend resources.
 
 
 #### Attach your integration to routes 
+
+#### Stage
+
+#### Deployment
