@@ -1,3 +1,8 @@
+# Design 
+This document is intended to describe the decisions and assumptions that went into the current design of the Amazon API Gateway module(s). Various concepts of Amazon API Gateway are covered here to help align readers with the service and its capabilities and how they influence the design provided by this project.
+
+
+
 # Terraform-aws-apigateway HTTP API/WebSocket
 
 Amazon API Gateway is an AWS service for creating, publishing, maintaining, monitoring, and securing REST, HTTP, and WebSocket APIs at any scale.
