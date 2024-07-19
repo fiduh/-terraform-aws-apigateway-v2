@@ -3,15 +3,13 @@
 ################################################################################
 output "api_id" {
   description = "The API identifier"
-  value       = try(aws_apigatewayv2_api.this[0].id, null)
+  value       = module.api_gateway.api_id
 }
 
 output "api_arn" {
   description = "The ARN of the API"
-  value       = try(aws_apigatewayv2_api.this[0].arn, null)
+  value       = module.api_gateway.api_arn
 }
-
-
 
 ################################################################################
 # Integration(s)
@@ -19,37 +17,32 @@ output "api_arn" {
 
 output "integrations" {
   description = "Map of the integrations created and their attributes"
-  value       = aws_apigatewayv2_integration.this
+  value       = module.api_gateway.integrations
 }
-
-
 
 ################################################################################
 # Route(s)
 ################################################################################
+
 output "routes" {
   description = "Map of the routes created and their attributes"
-  value       = aws_apigatewayv2_route.this
+  value       = module.api_gateway.routes
 }
-
-
 
 ################################################################################
 # Stage
 ################################################################################
-
 output "stage_id" {
   description = "The stage identifier"
-  value       = try(aws_apigatewayv2_stage.this[0].id, null)
+  value       = module.api_gateway.stage_id
 }
 
 output "stage_arn" {
   description = "The stage ARN"
-  value       = try(aws_apigatewayv2_stage.this[0].arn, null)
+  value       = module.api_gateway.stage_arn
 }
 
 output "stage_invoke_url" {
   description = "The URL to invoke the API pointing to the stage"
-  value       = try(aws_apigatewayv2_stage.this[0].invoke_url, null)
+  value       = module.api_gateway.stage_invoke_url
 }
-

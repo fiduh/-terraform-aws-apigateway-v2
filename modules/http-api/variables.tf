@@ -101,8 +101,71 @@ variable "routes" {
 # Stage
 ################################################################################
 
+variable "create_stage" {
+  description = "Whether to create default stage"
+  type        = bool
+  default     = true
+}
+
+variable "stage_access_log_settings" {
+  description = "Settings for logging access in this stage. Use the aws_api_gateway_account resource to configure [permissions for CloudWatch Logging](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html#set-up-access-logging-permissions)"
+  type = object({
+    create_log_group            = optional(bool, true)
+    destination_arn             = optional(string)
+    format                      = optional(string)
+    log_group_name              = optional(string)
+    log_group_retention_in_days = optional(number, 30)
+    log_group_kms_key_id        = optional(string)
+    log_group_skip_destroy      = optional(bool)
+    log_group_class             = optional(string)
+    log_group_tags              = optional(map(string), {})
+  })
+  default = {}
+}
+
+variable "stage_default_route_settings" {
+  description = "The default route settings for the stage"
+  type = object({
+    data_trace_enabled       = optional(bool, true)
+    detailed_metrics_enabled = optional(bool, true)
+    logging_level            = optional(string)
+    throttling_burst_limit   = optional(number, 500)
+    throttling_rate_limit    = optional(number, 1000)
+  })
+  default = {}
+}
+
+variable "stage_description" {
+  description = "The description for the stage. Must be less than or equal to 1024 characters in length"
+  type        = string
+  default     = null
+}
+
+variable "stage_name" {
+  description = "The name of the stage. Must be between 1 and 128 characters in length"
+  type        = string
+  default     = "$default"
+}
+
+variable "stage_variables" {
+  description = "A map that defines the stage variables for the stage"
+  type        = map(string)
+  default     = {}
+}
+
+variable "stage_tags" {
+  description = "A mapping of tags to assign to the stage resource"
+  type        = map(string)
+  default     = {}
+}
 
 
 ################################################################################
 # Deployment
 ################################################################################
+
+variable "deploy_stage" {
+  description = "Whether to deploy the stage. `HTTP` APIs are auto-deployed by default"
+  type        = bool
+  default     = true
+}

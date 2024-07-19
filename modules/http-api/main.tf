@@ -80,7 +80,26 @@ resource "aws_apigatewayv2_integration" "this" {
 ################################################################################
 # Stage
 ################################################################################
+locals {
+  create_stage = var.create && var.create_stage
+}
+resource "aws_apigatewayv2_stage" "this" {
+  count = local.create_stage ? 1 : 0
 
+  auto_deploy = local.is_http ? true : null
+
+  api_id = aws_apigatewayv2_api.this[0].id
+  description   = var.stage_description
+  name   = var.stage_name 
+
+  stage_variables = var.stage_variables
+
+  tags = merge(var.tags, var.stage_tags)
+
+  depends_on = [
+    aws_apigatewayv2_route.this
+  ]
+}
 
 
 
@@ -88,7 +107,30 @@ resource "aws_apigatewayv2_integration" "this" {
 # Deployment
 ################################################################################
 
+resource "aws_apigatewayv2_deployment" "this" {
+  count = local.create_stage && var.deploy_stage && !local.is_http ? 1 : 0
 
+  api_id      = aws_apigatewayv2_api.this[0].id
+  description = var.description
+
+  triggers = {
+    redeployment = sha1(join(",", tolist([
+      jsonencode(aws_apigatewayv2_integration.this),
+      jsonencode(aws_apigatewayv2_route.this),
+      jsonencode(aws_apigatewayv2_api.this[0].body),
+    ])))
+  }
+
+  depends_on = [
+    aws_apigatewayv2_api.this,
+    aws_apigatewayv2_route.this,
+    aws_apigatewayv2_integration.this,
+  ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
 
 
 
