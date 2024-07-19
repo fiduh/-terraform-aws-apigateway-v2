@@ -11,6 +11,10 @@ output "api_arn" {
   value       = try(aws_apigatewayv2_api.this[0].arn, null)
 }
 
+output "api_execution_arn" {
+  description = "The ARN prefix to be used in an `aws_lambda_permission`'s `source_arn` attribute or in an `aws_iam_policy` to authorize access to the `@connections` API"
+  value       = try(aws_apigatewayv2_api.this[0].execution_arn, null)
+}
 
 
 ################################################################################
