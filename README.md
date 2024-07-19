@@ -21,7 +21,7 @@ module "api_gateway" {
     allow_origins = ["*"]
   }
 
-  name = local.name
+  name = "api-test"
   description      = "Ticketing HTTP API Gateway"
 
 
