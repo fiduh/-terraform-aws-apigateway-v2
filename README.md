@@ -5,3 +5,5 @@ Terraform module which creates HTTP API resources on AWS.
 
 # Available Features
 For more details see the [design docs](docs/README.md) 
+
+# Usage
