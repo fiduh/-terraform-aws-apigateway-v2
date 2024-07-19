@@ -1,7 +1,7 @@
 # Design 
 This document is intended to describe the decisions and assumptions that went into the current design of the Amazon API Gateway module(s). Various concepts of Amazon API Gateway are covered here to help align readers with the service and its capabilities and how they influence the design provided by this project.
 
-
+For more details see the [Amazon API Gateway WebSocket and HTTP API Reference](https://docs.aws.amazon.com/apigatewayv2/latest/api-reference/api-reference.html)
 
 # Terraform-aws-apigateway HTTP API/WebSocket
 
