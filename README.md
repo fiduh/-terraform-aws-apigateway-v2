@@ -12,7 +12,7 @@ For more details see the [design docs](docs/README.md)
 
 ```hcl 
 module "api_gateway" {
-  source = "../../modules/http-api"
+  source = "git::https://gitlab.com/aws-terraform-modules2/terraform-aws-apigateway.git//modules/http-api?ref=v0.0.1"
 
   # API
   cors_configuration = {
