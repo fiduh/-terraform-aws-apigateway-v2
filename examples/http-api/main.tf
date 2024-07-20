@@ -66,9 +66,6 @@ module "api_gateway" {
   }
 
 
-
-
-
 }
 
 
