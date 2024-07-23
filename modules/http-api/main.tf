@@ -64,9 +64,11 @@ resource "aws_apigatewayv2_route" "this" {
 ################################################################################
 
 resource "aws_apigatewayv2_integration" "this" {
+   #for_each = { for stage_name, stage in var.stages : stage_name => stage.integrations if local.create_routes_and_integrations}
 
   #Iterates over var.routes if create_routes_and_integrations is true, creating an integration for each entry.
   for_each = { for k, v in var.routes : k => v.integration if local.create_routes_and_integrations }
+  
 
   api_id           = aws_apigatewayv2_api.this[0].id
 
@@ -82,6 +84,8 @@ resource "aws_apigatewayv2_integration" "this" {
   integration_method        = each.value.method
 
   # For a Lambda integration, specify the URI of a Lambda function.
+  # integration_uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${var.region}:${data.aws_caller_identity.current.account_id}:function:${stageVariables.${var.stage_name}}/invocations"
+
   integration_uri           = each.value.uri
   payload_format_version    = each.value.payload_format_version
 
@@ -102,22 +106,49 @@ resource "aws_apigatewayv2_integration" "this" {
 locals {
   create_stage = var.create && var.create_stage
 }
-resource "aws_apigatewayv2_stage" "this" {
+#resource "aws_apigatewayv2_stage" "this" {
 
   # Creates the stage if create_stage is true.
-  count = local.create_stage ? 1 : 0
+  #count = local.create_stage ? 1 : 0
+
+  # Enables automatic deployment if protocol_type is "HTTP".
+  #auto_deploy = local.is_http ? true : null
+
+  #api_id = aws_apigatewayv2_api.this[0].id
+  #description   = var.stage_description
+
+  # Sets the stage name from the variable.
+  #name   = var.stage_name 
+
+  # Sets stage variables from the variable.
+  #stage_variables = var.stage_variables
+
+  # Merges the provided tags with additional stage-specific tags.
+  #tags = merge(var.tags, var.stage_tags)
+
+  # Ensures the stage is created after the routes.
+  #depends_on = [
+   # aws_apigatewayv2_route.this
+ # ]
+#}
+resource "aws_apigatewayv2_stage" "this" {
+  #for_each = { for k, v in var.routes : k => v.stages if var.create && stage.deploy }
+
+
+  # Creates the stage if create_stage is true.
+  for_each = { for stage_name, stage in var.stages : stage_name => stage if var.create && stage.deploy }
 
   # Enables automatic deployment if protocol_type is "HTTP".
   auto_deploy = local.is_http ? true : null
 
   api_id = aws_apigatewayv2_api.this[0].id
-  description   = var.stage_description
+  description   = each.value.description
 
   # Sets the stage name from the variable.
-  name   = var.stage_name 
+  name   = each.value.stage_name 
 
   # Sets stage variables from the variable.
-  stage_variables = var.stage_variables
+  stage_variables = each.value.stage_variables
 
   # Merges the provided tags with additional stage-specific tags.
   tags = merge(var.tags, var.stage_tags)
@@ -127,6 +158,7 @@ resource "aws_apigatewayv2_stage" "this" {
     aws_apigatewayv2_route.this
   ]
 }
+
 
 
 
