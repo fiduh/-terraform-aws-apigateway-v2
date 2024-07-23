@@ -62,6 +62,13 @@ resource "aws_apigatewayv2_route" "this" {
 ################################################################################
 # Integration(s)
 ################################################################################
+locals {
+  region = data.aws_region.current.name
+}
+
+data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
+
 
 resource "aws_apigatewayv2_integration" "this" {
    #for_each = { for stage_name, stage in var.stages : stage_name => stage.integrations if local.create_routes_and_integrations}
@@ -84,9 +91,11 @@ resource "aws_apigatewayv2_integration" "this" {
   integration_method        = each.value.method
 
   # For a Lambda integration, specify the URI of a Lambda function.
-  # integration_uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${var.region}:${data.aws_caller_identity.current.account_id}:function:${stageVariables.${var.stage_name}}/invocations"
+  #integration_uri = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:${stageVariables.function}/invocations"
 
-  integration_uri           = each.value.uri
+  integration_uri = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:$${stageVariables.function}/invocations"
+
+  #integration_uri           = each.value.uri
   payload_format_version    = each.value.payload_format_version
 
   # Specifies the credentials required for the integration, if any. three options are available. To specify an IAM Role for API Gateway to assume, use the role's Amazon Resource Name (ARN). To require that the caller's identity be passed through from the request, specify the string arn:aws:iam::*:user/*. To use resource-based permissions on supported AWS services, don't specify this parameter.
@@ -96,6 +105,7 @@ resource "aws_apigatewayv2_integration" "this" {
   lifecycle {
     create_before_destroy = true
   }
+
 }
 
 
@@ -104,7 +114,7 @@ resource "aws_apigatewayv2_integration" "this" {
 # Stage
 ################################################################################
 locals {
-  create_stage = var.create && var.create_stage
+  create_stage = var.create && var.create_stage 
 }
 #resource "aws_apigatewayv2_stage" "this" {
 
@@ -132,7 +142,7 @@ locals {
  # ]
 #}
 resource "aws_apigatewayv2_stage" "this" {
-  #for_each = { for k, v in var.routes : k => v.stages if var.create && stage.deploy }
+  #for_each = { for k, v in var.routes : k => v.stage if var.create  }
 
 
   # Creates the stage if create_stage is true.

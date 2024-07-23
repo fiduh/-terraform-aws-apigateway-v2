@@ -92,9 +92,6 @@ variable "routes" {
 
     })
 
-
-
-
   }))
   default = {}
 }
@@ -141,20 +138,11 @@ variable "stage_default_route_settings" {
 
 variable "stages" {
   type = map(object({
-    stage_name = string
-    description = string
-    stage_variables = map(string)
-    tags = map(string)
-    deploy = bool
-    integrations = map(object({
-      type = string
-      connection_type = string
-      description = string
-      method = string
-      uri = string
-      payload_format_version = string
-      credentials_arn = string
-    }))
+    stage_name = optional(string)
+    description = optional(string)
+    stage_variables = optional(map(string))
+    tags = optional(map(string))
+    deploy = optional(bool)
   }))
 
   default = {
@@ -166,38 +154,16 @@ variable "stages" {
       }
       tags = {}
       deploy = true
-      integrations = {
-        "GET /path" = {
-          type = "AWS_PROXY"
-          connection_type = "INTERNET"
-          description = "GET /path integration for stage"
-          method = "POST"
-          uri = "arn:aws:lambda:region:account-id:function:function-name"
-          payload_format_version = "2.0"
-          credentials_arn = "arn:aws:iam::account-id:role/role-name"
-        }
-      }
     }
 
      stage = {
       stage_name = "stage"
       description = "Stage environment"
       stage_variables = {
-        function = "demoNodeJS"
+        function = "node-sls-dev-hello"
       }
       tags = {}
       deploy = true
-      integrations = {
-        "GET /path" = {
-          type = "AWS_PROXY"
-          connection_type = "INTERNET"
-          description = "GET /path integration for prod"
-          method = "POST"
-          uri = "arn:aws:lambda:region:account-id:function:function-name"
-          payload_format_version = "2.0"
-          credentials_arn = "arn:aws:iam::account-id:role/role-name"
-        }
-      }
     }
   }
 }
