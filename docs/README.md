@@ -44,14 +44,18 @@ Integration to connect a route to backend resources. HTTP APIs support Lambda pr
 #### Attach your integration to routes 
 
 #### Configure CORS for HTTP APIs 
-Cross-origin resource sharing (CORS)
+Cross-origin resource sharing (CORS) is a browser security feature that restricts HTTP requests that are initiated from scripts running in the browser. If you cannot access your API and receive an error message that contains Cross-Origin Request Blocked, you might need to enable CORS.
 
 #### Transform API requests and responses for HTTP APIs
 
-#### Stage
+#### Publish HTTP APIs for customers to invoke
+You can use stages and custom domain name to publish your API for clients to invoke.
 An API stage is a logical reference to a lifecycle state of your API (for example, dev, prod, beta, or v2). Each stage is a named reference to a deployment of the API and is made available for client applications to call. You can configure different integrations and settings for each stage of an API.
 You can use stages and custom domain names to publish your API for clients to invoke.
 - You can use custom domain names to provide a simpler, more intuitive URL for clients to invoke your API than the default URL, https://api-id.execute-api.region.amazonaws.com/stage.
+- *Stages*: 
+- *Security Policy*:
+- *Custom domain names*: 
 
 #### Deployment
 A deployment is a point-in-time snapshot of your API configuration. After you deploy an API to a stage, it’s available for clients to invoke. You must deploy an API for changes to take effect. If you enable automatic deployments, changes to an API are automatically released for you.
