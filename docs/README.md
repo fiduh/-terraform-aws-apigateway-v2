@@ -9,6 +9,8 @@ Amazon API Gateway is an AWS service for creating, publishing, maintaining, moni
 
 HTTP APIs enable you to create RESTful APIs with lower latency and are designed with minimal features so that they can be offered at a lower price than it's REST APIs alternative which support more features such as API keys, per-client throttling, request validation, AWS WAF integration, or private API endpoints (use HTTP APIs if you don't need these features)
 
+HTTP APIs support OpenID Connect and OAuth 2.0 authorization. They come with built-in support for cross-origin resource sharing (CORS) and automatic deployments.
+
 
 #### create an HTTP API 
 HTTP API provides an HTTP endpoint
