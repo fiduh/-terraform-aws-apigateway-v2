@@ -18,24 +18,33 @@ To create a functional API, you must have at least one route, integration, stage
 
 #### Create routes 
 Routes are a way to send incoming API requests to backend resources. Routes consist of two parts: an HTTP method and a resource path, for example, GET /items. The ANY method matches all methods that you haven't defined for a resource. $default route acts as a catch-all for requests that don't match any other routes.
-- Working with path variables: For example, the GET /pets/{petID} route catches a GET request that a client submits to https://api-id.execute-api.us-east-2.amazonaws.com/pets/6.
-- A greedy path variable catches all child resources of a route. To create a greedy path variable, add + to the variable name--for example, {proxy+}. The greedy path variable must be at the end of the resource path.
+- *Working with path variables*: For example, the GET /pets/{petID} route catches a GET request that a client submits to https://api-id.execute-api.us-east-2.amazonaws.com/pets/6.
+- A *greedy path variable* catches all child resources of a route. To create a greedy path variable, add + to the variable name--for example, {proxy+}. The greedy path variable must be at the end of the resource path.
+- *Working with query string parameters*: By default, API Gateway sends query string parameters to your backend integration if they are included in a request to an HTTP API. For example, when a client sends a request to https://api-id.execute-api.us-east-2.amazonaws.com/pets?id=4&type=dog, the query string parameter ?id=4&type=dog are sent to your integration.
+- *Working with the $default route*: 
+
+#### Routing API requests
 
 #### Control and manage access to HTTP APIs in API Gateway
+API Gateway supports multiple mechanisms for controlling and managing access to your HTTP API:
+- *Lambda authorizers*
+- *JWT authorizers*
+- *Standard AWS IAM roles and policies*
 
 #### Create integrations for HTTP APIs
-Integration to connect a route to backend resources. HTTP APIs support Lambda proxy, AWS service, Private and HTTP proxy integrations.
-- AWS Lambda proxy integrations: enables you to integrate an API route with a Lambda function
+Integration to connect a route to backend resources. HTTP APIs support Lambda proxy, AWS service, and HTTP proxy integrations. *For example, you can configure a POST request to the /signup route of your API to integrate with a Lambda function that handles signing up customers*
+- *AWS Lambda proxy integrations*: enables you to integrate an API route with a Lambda function. When a client calls your API, API Gateway sends the request to the Lambda function and returns the function's response to the client.
     - Payload format version: specifies the format of the event that API Gateway sends to a Lambda integration, and how API Gateway interprets the response from Lambda. *payloadFormatVersion.* The supported values are 1.0 and 2.0.
-- AWS service integrations: integrate your HTTP API with AWS services by using first-class integrations. You can use first-class integrations to send a message to an Amazon Simple Queue Service queue, or to start an AWS Step Functions state machine.
+- *AWS service integrations*: integrate your HTTP API with AWS services by using *first-class integrations*. A first-class integration connects an HTTP API route to an AWS service API. Whena client invokes a route that's backed by a first-class integration, API Gateway invokes an AWS service API for you. For example, you can use first-class integrations to send a message to an Amazon Simple Queue Service queue, or to start an AWS Step Functions state machine.
     - Create a first-class integration: Before you create a first-class integration, you must create an IAM role that grants API Gateway permissions to invoke the AWS service action that you're integrating with.
-- Private integrations: enable you to create API integrations with private resources in a VPC, such as Application Load Balancers or Amazon ECS container-based applications.
+- *Private integrations*: enable you to create API integrations with private resources in a VPC, such as Application Load Balancers or Amazon ECS container-based applications.
     - To create a private integration, you must first create a VPC link.
 
 
 #### Attach your integration to routes 
 
 #### Configure CORS for HTTP APIs 
+Cross-origin resource sharing (CORS)
 
 #### Transform API requests and responses for HTTP APIs
 
