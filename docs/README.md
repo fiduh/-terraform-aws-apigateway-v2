@@ -14,11 +14,16 @@ HTTP APIs support OpenID Connect and OAuth 2.0 authorization. They come with bui
 
 #### create an HTTP API 
 HTTP API provides an HTTP endpoint
+To create a functional API, you must have at least one route, integration, stage, and deployment.
 
 #### Create routes 
 Routes are a way to send incoming API requests to backend resources. Routes consist of two parts: an HTTP method and a resource path, for example, GET /items. The ANY method matches all methods that you haven't defined for a resource. $default route acts as a catch-all for requests that don't match any other routes.
+- Working with path variables: For example, the GET /pets/{petID} route catches a GET request that a client submits to https://api-id.execute-api.us-east-2.amazonaws.com/pets/6.
+- A greedy path variable catches all child resources of a route. To create a greedy path variable, add + to the variable name--for example, {proxy+}. The greedy path variable must be at the end of the resource path.
 
-#### Create an integration
+#### Control and manage access to HTTP APIs in API Gateway
+
+#### Create integrations for HTTP APIs
 Integration to connect a route to backend resources. HTTP APIs support Lambda proxy, AWS service, Private and HTTP proxy integrations.
 - AWS Lambda proxy integrations: enables you to integrate an API route with a Lambda function
     - Payload format version: specifies the format of the event that API Gateway sends to a Lambda integration, and how API Gateway interprets the response from Lambda. *payloadFormatVersion.* The supported values are 1.0 and 2.0.
@@ -29,6 +34,10 @@ Integration to connect a route to backend resources. HTTP APIs support Lambda pr
 
 
 #### Attach your integration to routes 
+
+#### Configure CORS for HTTP APIs 
+
+#### Transform API requests and responses for HTTP APIs
 
 #### Stage
 An API stage is a logical reference to a lifecycle state of your API (for example, dev, prod, beta, or v2). Each stage is a named reference to a deployment of the API and is made available for client applications to call. You can configure different integrations and settings for each stage of an API.
