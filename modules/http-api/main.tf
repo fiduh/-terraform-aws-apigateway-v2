@@ -161,7 +161,7 @@ resource "aws_apigatewayv2_stage" "this" {
   stage_variables = each.value.stage_variables
 
   # Merges the provided tags with additional stage-specific tags.
-  tags = merge(var.tags, var.stage_tags)
+  tags = merge(var.tags, each.value.tags)
 
   # Ensures the stage is created after the routes.
   depends_on = [
