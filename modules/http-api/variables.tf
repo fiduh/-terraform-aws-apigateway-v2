@@ -145,54 +145,7 @@ variable "stages" {
     deploy = optional(bool)
   }))
 
-  default = {
-    default = {
-      stage_name = "$default"
-      description = "Default environment"
-      stage_variables = {
-        function = "demoNodeJS"
-      }
-      tags = {}
-      deploy = true
-    }
-
-     stage = {
-      stage_name = "stage"
-      description = "Stage environment"
-      stage_variables = {
-        function = "node-sls-dev-hello"
-      }
-      tags = {}
-      deploy = true
-    }
-  }
-}
-
-
-
-
-variable "stage_description" {
-  description = "The description for the stage. Must be less than or equal to 1024 characters in length"
-  type        = string
-  default     = null
-}
-
-variable "stage_name" {
-  description = "The name of the stage. Must be between 1 and 128 characters in length"
-  type        = string
-  default     = "$default"
-}
-
-variable "stage_variables" {
-  description = "A map that defines the stage variables for the stage"
-  type        = map(string)
-  default     = {}
-}
-
-variable "stage_tags" {
-  description = "A mapping of tags to assign to the stage resource"
-  type        = map(string)
-  default     = {}
+  default = {}
 }
 
 
