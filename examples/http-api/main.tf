@@ -25,7 +25,7 @@ module "api_gateway" {
   # Routes & Integration(s)
   routes = {
 
-     "ANY /auth/{x}" = {
+     "ANY /api/auth/{x}" = {
       detailed_metrics_enabled = false
 
       integration = {
@@ -43,6 +43,13 @@ module "api_gateway" {
     }
 
     "ANY /api/ticket/status" = {
+      integration = {
+        uri = aws_lambda_function.this.invoke_arn
+        payload_format_version = "1.0"
+      }
+    }
+
+    "ANY /api/ticket/archive" = {
       integration = {
         uri = aws_lambda_function.this.invoke_arn
         payload_format_version = "1.0"
