@@ -96,7 +96,7 @@ resource "aws_apigatewayv2_integration" "this" {
   
   
   
-  integration_uri  = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:${each.value.function_name}${(stageVariable.lambdaAlias != "" ? ":$${stageVariable.lambdaAlias}" : "")}/invocations"
+  integration_uri  = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:${each.value.function_name}${($${stageVariables.lambdaAlias} != "" ? ":$${stageVariable.lambdaAlias}" : "")}/invocations"
 
   #integration_uri = each.value.uri
 
