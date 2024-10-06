@@ -76,18 +76,18 @@ module "api_gateway" {
 
   create_lambda_alias = true
 
-  stages = {
+  # stages = {
 
-    stage = {
-      stage_name = "stage"
-      description = "Stage environment"
-      stage_variables = {
-        lambdaAlias = "stage"
-      }
-      tags = {}
-      deploy = true
-    }
-  }
+  #   stage = {
+  #     stage_name = "stage"
+  #     description = "Stage environment"
+  #     stage_variables = {
+  #       lambdaAlias = "stage"
+  #     }
+  #     tags = {}
+  #     deploy = true
+  #   }
+  # }
 
 }
 
