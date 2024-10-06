@@ -74,6 +74,8 @@ module "api_gateway" {
     }
   }
 
+  create_lambda_alias = true
+
   stages = {
 
     stage = {
