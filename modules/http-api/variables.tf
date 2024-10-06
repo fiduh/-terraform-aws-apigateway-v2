@@ -149,7 +149,9 @@ variable "stages" {
      default = {
       stage_name = "$default"
       description = "Default environment"
-      stage_variables = {}
+      stage_variables = {
+        lambdaAlias = "$LATEST"
+      }
       tags = {}
       deploy = true
     }
