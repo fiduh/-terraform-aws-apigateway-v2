@@ -145,7 +145,18 @@ variable "stages" {
     deploy = optional(bool)
   }))
 
-  default = {}
+  default = {
+     default = {
+      stage_name = "$default"
+      description = "Default environment"
+      stage_variables = {
+        function = "demoNodeJS"
+      }
+      tags = {}
+      deploy = true
+    }
+
+  }
 }
 
 
