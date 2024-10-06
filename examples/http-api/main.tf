@@ -3,10 +3,9 @@ provider "aws" {
 }
 
 locals {
-  name = "api-gateway-test"
+  name = "api-gateway-demo"
   region = "us-east-1"
   function_name1 = "demoNodeJS"
-  demo_lambda_function = "demoAPIFunction"
 }
 
 module "api_gateway" {
@@ -81,36 +80,26 @@ module "api_gateway" {
       stage_name = "stage"
       description = "Stage environment"
       stage_variables = {
-        functionAlias = "stage"
+        lambdaAlias = "stage"
       }
       tags = {}
       deploy = true
     }
   }
 
-  #   stage = {
-  #   stage_name = "prod"
-  #   description = "Default environment"
-  #   stage_variables = {
-  #     function = "demoNodeJS"
-  #   }
-  #   tags = {}
-  #   deploy = true
-  # }
-
 }
 
 
+
+################################################################################
+# Supporting Resources
+################################################################################
 
 output "lambda_function_name" {
   description = "Lambda inokation URI"
   value = aws_lambda_function.this.function_name
 }
 
-
-################################################################################
-# Supporting Resources
-################################################################################
 
 # IAM Role for Lambda
 resource "aws_iam_role" "lambda_role" {
@@ -136,7 +125,7 @@ resource "aws_iam_role" "lambda_role" {
 
 # Lambda Function
 resource "aws_lambda_function" "this" {
-  function_name = local.demo_lambda_function
+  function_name = "demoAPIFunction"
   handler       = "index.handler"
   runtime       = "nodejs20.x"
 
