@@ -75,26 +75,27 @@ module "api_gateway" {
     }
   }
 
-  # stages = {
-  #   stage = {
-  #     stage_name = "prod"
-  #     description = "Default environment"
-  #     stage_variables = {
-  #       function = "demoNodeJS"
-  #     }
-  #     tags = {}
-  #     deploy = true
-  #   }
+  stages = {
+
+    stage = {
+      stage_name = "stage"
+      description = "Stage environment"
+      stage_variables = {
+        functionAlias = "stage"
+      }
+      tags = {}
+      deploy = true
+    }
+  }
 
   #   stage = {
-  #     stage_name = "stage"
-  #     description = "Stage environment"
-  #     stage_variables = {
-  #       function = "demoNodeJS"
-  #     }
-  #     tags = {}
-  #     deploy = true
+  #   stage_name = "prod"
+  #   description = "Default environment"
+  #   stage_variables = {
+  #     function = "demoNodeJS"
   #   }
+  #   tags = {}
+  #   deploy = true
   # }
 
 }
