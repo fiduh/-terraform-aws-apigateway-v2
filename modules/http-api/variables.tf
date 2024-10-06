@@ -86,7 +86,7 @@ variable "routes" {
       description               = optional(string)
       method                    = optional(string)
       type                      = optional(string, "AWS_PROXY")
-      uri                       = optional(string)
+      function_name             = optional(string)
       passthrough_behavior      = optional(string)
       payload_format_version    = optional(string)
 
