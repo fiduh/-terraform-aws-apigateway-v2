@@ -91,15 +91,17 @@ resource "aws_apigatewayv2_integration" "this" {
   integration_method        = each.value.method
 
   # For a Lambda integration, specify the URI of a Lambda function.
-  #integration_uri = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:${each.value.function_name}:$${stageVariables.functionAlias}/invocations"
-  integration_uri  = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:${each.value.function_name}${contains(each.value.stage_variables, "") ? "" : ":$${stageVariable.functionAlias}"}/invocations"
-
+  integration_uri = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:${each.value.function_name}:$${stageVariables.functionAlias}/invocations"
+  
+  
+  
+  
+  #integration_uri  = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:${each.value.function_name}${contains(each.value.stage_variables, "") ? "" : ":$${stageVariable.functionAlias}"}/invocations"
 
   #integration_uri = each.value.uri
 
   #integration_uri = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:$${stageVariables.function}/invocations"
 
-  #integration_uri           = each.value.uri
   payload_format_version    = each.value.payload_format_version
 
   # Specifies the credentials required for the integration, if any. three options are available. To specify an IAM Role for API Gateway to assume, use the role's Amazon Resource Name (ARN). To require that the caller's identity be passed through from the request, specify the string arn:aws:iam::*:user/*. To use resource-based permissions on supported AWS services, don't specify this parameter.
