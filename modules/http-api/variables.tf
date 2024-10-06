@@ -108,6 +108,13 @@ variable "create_stage" {
   default     = true
 }
 
+variable "create_lambda_alias" {
+  description = "Whether to create stageVariable Lambda Alias"
+  type        = bool
+  default     = false
+}
+
+
 variable "stage_access_log_settings" {
   description = "Settings for logging access in this stage. Use the aws_api_gateway_account resource to configure [permissions for CloudWatch Logging](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html#set-up-access-logging-permissions)"
   type = object({
