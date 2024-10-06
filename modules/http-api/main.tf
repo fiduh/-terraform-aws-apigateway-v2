@@ -92,7 +92,7 @@ resource "aws_apigatewayv2_integration" "this" {
 
   # For a Lambda integration, specify the URI of a Lambda function.
   #integration_uri = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:${each.value.function_name}:$${stageVariables.functionAlias}/invocations"
-  integration_uri  = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:demoNodeJS${contains(stageVariable.functionAlias, "") ? "" : ":$${stageVariable.functionAlias}"}/invocations"
+  integration_uri  = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:${each.value.function_name}${contains(each.value.stage_variables, "") ? "" : ":$${stageVariable.functionAlias}"}/invocations"
 
 
   #integration_uri = each.value.uri
