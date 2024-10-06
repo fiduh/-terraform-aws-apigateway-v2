@@ -97,6 +97,11 @@ module "api_gateway" {
 
 }
 
+output "lambda_uri" {
+  description = "Lambda inokation URI"
+  value = aws_lambda_function.this.invoke_arn
+}
+
 
 ################################################################################
 # Supporting Resources
