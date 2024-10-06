@@ -149,9 +149,7 @@ variable "stages" {
      default = {
       stage_name = "$default"
       description = "Default environment"
-      stage_variables = {
-        function = "demoNodeJS"
-      }
+      stage_variables = {}
       tags = {}
       deploy = true
     }
