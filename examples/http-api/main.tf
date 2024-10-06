@@ -5,6 +5,8 @@ provider "aws" {
 locals {
   name = "api-gateway-test"
   region = "us-east-1"
+  function_name1 = "demoNodeJS"
+  demo_lambda_function = "demoAPIFunction"
 }
 
 module "api_gateway" {
@@ -29,14 +31,14 @@ module "api_gateway" {
       detailed_metrics_enabled = false
 
       integration = {
-        uri = aws_lambda_function.this.invoke_arn
+        function_name = local.function_name1
         payload_format_version = "2.0"
       }
     }
 
     "ANY /api/ticket" = {
       integration = {
-        uri = aws_lambda_function.this.invoke_arn
+        function_name = local.function_name1
         type            = "AWS_PROXY"
         payload_format_version = "1.0"
       }
@@ -44,21 +46,21 @@ module "api_gateway" {
 
     "ANY /api/ticket/status" = {
       integration = {
-        uri = aws_lambda_function.this.invoke_arn
+        function_name = local.function_name1
         payload_format_version = "1.0"
       }
     }
 
     "ANY /api/ticket/archive" = {
       integration = {
-        uri = aws_lambda_function.this.invoke_arn
+        function_name = local.function_name1
         payload_format_version = "1.0"
       }
     }
 
     "ANY /api/ticket/reply-email" = {
       integration = {
-        uri = aws_lambda_function.this.invoke_arn
+        function_name = local.function_name1
         type            = "AWS_PROXY"
         payload_format_version = "1.0"
       }
@@ -66,7 +68,7 @@ module "api_gateway" {
 
     "ANY /api/ticket/replytick" = {
       integration = {
-        uri = aws_lambda_function.this.invoke_arn
+        function_name = local.function_name1
         type            = "AWS_PROXY"
         payload_format_version = "1.0"
       }
@@ -97,9 +99,11 @@ module "api_gateway" {
 
 }
 
-output "lambda_uri" {
+
+
+output "lambda_function_name" {
   description = "Lambda inokation URI"
-  value = aws_lambda_function.this.invoke_arn
+  value = aws_lambda_function.this.function_name
 }
 
 
@@ -131,7 +135,7 @@ resource "aws_iam_role" "lambda_role" {
 
 # Lambda Function
 resource "aws_lambda_function" "this" {
-  function_name = "HelloWorldFunction"
+  function_name = local.demo_lambda_function
   handler       = "index.handler"
   runtime       = "nodejs20.x"
 
