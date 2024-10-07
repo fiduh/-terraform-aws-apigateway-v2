@@ -93,14 +93,8 @@ resource "aws_apigatewayv2_integration" "this" {
   # For a Lambda integration, specify the URI of a Lambda function.
   integration_uri = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:${each.value.function_name}:$${stageVariables.lambdaAlias}/invocations"
   
-  
-  
-  
-  #integration_uri  = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:${each.value.function_name}${($${stageVariables.lambdaAlias} != "" ? ":$${stageVariable.lambdaAlias}" : "")}/invocations"
-
   #integration_uri = each.value.uri
 
-  #integration_uri = "arn:aws:apigateway:${local.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${local.region}:${data.aws_caller_identity.current.account_id}:function:$${stageVariables.function}/invocations"
 
   payload_format_version    = each.value.payload_format_version
 
@@ -122,31 +116,7 @@ resource "aws_apigatewayv2_integration" "this" {
 locals {
   create_stage = var.create && var.create_stage 
 }
-#resource "aws_apigatewayv2_stage" "this" {
 
-  # Creates the stage if create_stage is true.
-  #count = local.create_stage ? 1 : 0
-
-  # Enables automatic deployment if protocol_type is "HTTP".
-  #auto_deploy = local.is_http ? true : null
-
-  #api_id = aws_apigatewayv2_api.this[0].id
-  #description   = var.stage_description
-
-  # Sets the stage name from the variable.
-  #name   = var.stage_name 
-
-  # Sets stage variables from the variable.
-  #stage_variables = var.stage_variables
-
-  # Merges the provided tags with additional stage-specific tags.
-  #tags = merge(var.tags, var.stage_tags)
-
-  # Ensures the stage is created after the routes.
-  #depends_on = [
-   # aws_apigatewayv2_route.this
- # ]
-#}
 resource "aws_apigatewayv2_stage" "this" {
   #for_each = { for k, v in var.routes : k => v.stage if var.create  }
 
