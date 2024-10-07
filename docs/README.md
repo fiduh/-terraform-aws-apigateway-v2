@@ -59,8 +59,32 @@ You can create a $default stage that is served from the base of your API's URL�
 
 A deployment is a snapshot of your API configuration. After you deploy an API to a stage, it’s available for clients to invoke. You must deploy an API for changes to take effect. If you enable automatic deployments, changes to an API are automatically released for you.
     - Use stage variables for HTTP APIs: Stage variables are key-value pairs that you can define for a stage of an HTTP API. They act like environment variables and can be used in your API setup. Stage variables are not intended to be used for sensitive data, such as credentials.
+    - Example: you can use stage variables to specify a different AWS Lambda function integration for each stage of your API. You can tell API Gateway to use the stage variable value, http://${stageVariables.url}. This value tells API Gateway to substitute your stage variable ${} at runtime, depending on the stage of your API.
+    - When specifying a Lambda function name as a stage variable value, you must configure the permissions on the Lambda function manually.
 - *Security Policy*:
-- *Custom domain names*: 
+- *Custom domain names*: Custom domain names are simpler and more intuitive URLs that you can provide to your API users. 
+
+After deploying your API, you (and your customers) can invoke the API using the default base URL of the following format: 
+``` 
+https://api-id.execute-api.region.amazonaws.com/stage
+```
+    - With custom domain names, you can set up your API's hostname, and choose a base path (for example, myservice) to map the alternative URL to your API. For example, a more user-friendly API base URL can become:
+    ```
+    https://api.example.com/myservice
+    ```
+#### Map API stages to a custom domain name
+You use API mappings to connect API stages to a custom domain name. After you create a domain name and configure DNS records, you use API mappings to send traffic to your APIs through your custom domain name.
+
+An API mapping specifies an API, a stage, and optionally a path to use for the mapping. For example, you can map the production stage of an API to https://api.example.com/orders.
+
+You can map HTTP and REST API stages to the same custom domain name.
+Before you create an API mapping, you must have an API, a stage, and a custom domain name. To learn more about creating a custom domain name.
+    - Disable the default endpoint for HTTP APIs: By default, clients can invoke your API by using the execute-api endpoint that API Gateway generates for your API. To ensure that clients can access your API only by using a custom domain name, disable the default execute-api endpoint. When you disable the default endpoint, it affects all stages of an API. After you disable the default endpoint, you must deploy your API for the change to take effect, unless automatic deployments are enabled.
+
+#### Protect your HTTP APIs
+API Gateway provides a number of ways to protect your API from certain threats, like malicious users or spikes in traffic. You can protect your API using strategies like setting throttling targets, and enabling mutual TLS.
+- *Throttling*: You can configure throttling for your APIs to help protect them from being overwhelmed by too many requests. Throttles are applied on a best-effort basis and should be thought of as targets rather than guaranteed request ceilings.
+- *Mutual TLS*
 
 #### Deployment
 A deployment is a point-in-time snapshot of your API configuration. After you deploy an API to a stage, it’s available for clients to invoke. You must deploy an API for changes to take effect. If you enable automatic deployments, changes to an API are automatically released for you.
@@ -68,6 +92,9 @@ A deployment is a point-in-time snapshot of your API configuration. After you de
 
 #### Monitor
 You can use CloudWatch metrics and CloudWatch Logs to monitor HTTP APIs. By combining logs and metrics, you can log errors and monitor your API's performance.
-- Metrics
+- *Metrics*: CloudWatch metrics for HTTP APIs
+    - You can monitor API execution by using CloudWatch, which collects and processes raw data from API Gateway into readable, near-real-time metrics. These statistics are recorded for a period of 15 months so you can access historical information and gain a better perspective on how your web application or service is performing.
+    - By default, API Gateway metric data is automatically sent to CloudWatch in one-minute periods. To monitor your metrics, create a CloudWatch dashboard for your API.
 
-- Logging
+- *Logging*: Configure logging for HTTP APIs
+    - You can turn on logging to write logs to CloudWatch Logs. You can use [logging variables](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-logging-variables.html) to customize the content of your logs.
