@@ -98,3 +98,9 @@ You can use CloudWatch metrics and CloudWatch Logs to monitor HTTP APIs. By comb
 
 - *Logging*: Configure logging for HTTP APIs
     - You can turn on logging to write logs to CloudWatch Logs. You can use [logging variables](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-logging-variables.html) to customize the content of your logs.
+    - To turn on logging for an HTTP API, you must do the following:
+        1. Ensure that your user has the required permissions to activate logging.
+        2. Create a CloudWatch Logs log group.
+        3. Provide the ARN of the CloudWatch Logs log group for a stage of your API.
+
+#### Security
