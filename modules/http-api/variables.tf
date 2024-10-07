@@ -89,7 +89,6 @@ variable "routes" {
       function_name             = optional(string)
       passthrough_behavior      = optional(string)
       payload_format_version    = optional(string)
-
     })
 
   }))
@@ -106,12 +105,6 @@ variable "create_stage" {
   description = "Whether to create default stage"
   type        = bool
   default     = true
-}
-
-variable "create_lambda_alias" {
-  description = "Whether to create stageVariable Lambda Alias"
-  type        = bool
-  default     = false
 }
 
 
