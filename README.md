@@ -55,3 +55,5 @@ module "api_gateway" {
 
 }
 ```
+
+#### Fallback Mechanism for Lambda Alias Values: Due to the fact that you can't pass $LATEST as stageVariables to API Gateway, to implement a default stage variable that points to $LATEST lambda alias, you have to create a DEV alias in Lambda that points to $LATEST and create a default dev stage variable in API Gateway that points to DEV alias.
