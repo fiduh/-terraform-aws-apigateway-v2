@@ -11,7 +11,8 @@ locals {
 module "api_gateway" {
    source = "../../modules/http-api"
   
-  #source = "git::https://gitlab.com/aws-terraform-modules2/terraform-aws-apigateway.git//modules/http-api?ref=v0.0.1"
+  #source = "git::https://gitlab.com/aws-terraform-modules2/terraform-aws-apigateway.git//modules/http-api?ref=v0.0.3"
+
   # API
   cors_configuration = {
     allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent"]
@@ -20,7 +21,7 @@ module "api_gateway" {
   }
 
   name = local.name
-  description      = "Ticketing HTTP API Gateway"
+  description      = "Demo HTTP API Gateway"
 
 
   # Routes & Integration(s)
@@ -74,7 +75,6 @@ module "api_gateway" {
     }
   }
 
-  create_lambda_alias = true
 
   # stages = {
 
