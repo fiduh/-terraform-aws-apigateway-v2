@@ -61,7 +61,11 @@ variable "api_version" {
 ################################################################################
 # Route(s) & Integration(s)
 ################################################################################
-
+variable "is_lambda_integration" {
+  description = "Whether this is a Lambda Integration"
+  type = bool
+  default = true
+}
 variable "create_routes_and_integrations" {
   description = "Whether to create routes and integrations resources"
   type        = bool
@@ -87,6 +91,7 @@ variable "routes" {
       method                    = optional(string)
       type                      = optional(string, "AWS_PROXY")
       function_name             = optional(string)
+      uri                       = optional(string)
       passthrough_behavior      = optional(string)
       payload_format_version    = optional(string)
     })

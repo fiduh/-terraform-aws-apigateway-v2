@@ -25,54 +25,53 @@ module "api_gateway" {
 
 
   # Routes & Integration(s)
+  is_lambda_integration = false
   routes = {
 
      "ANY /api/auth/{x}" = {
-      detailed_metrics_enabled = false
-
       integration = {
-        function_name = local.function_name1
-        payload_format_version = "2.0"
+        # function_name = local.function_name1
+        uri = "aws_lb_listener"
       }
     }
 
-    "ANY /api/ticket" = {
-      integration = {
-        function_name = local.function_name1
-        type            = "AWS_PROXY"
-        payload_format_version = "1.0"
-      }
-    }
+    # "ANY /api/ticket" = {
+    #   integration = {
+    #     function_name = local.function_name1
+    #     type            = "AWS_PROXY"
+    #     payload_format_version = "1.0"
+    #   }
+    # }
 
-    "ANY /api/ticket/status" = {
-      integration = {
-        function_name = local.function_name1
-        payload_format_version = "1.0"
-      }
-    }
+    # "ANY /api/ticket/status" = {
+    #   integration = {
+    #     function_name = local.function_name1
+    #     payload_format_version = "1.0"
+    #   }
+    # }
 
-    "ANY /api/ticket/archive" = {
-      integration = {
-        function_name = local.function_name1
-        payload_format_version = "1.0"
-      }
-    }
+    # "ANY /api/ticket/archive" = {
+    #   integration = {
+    #     function_name = local.function_name1
+    #     payload_format_version = "1.0"
+    #   }
+    # }
 
-    "ANY /api/ticket/reply-email" = {
-      integration = {
-        function_name = local.function_name1
-        type            = "AWS_PROXY"
-        payload_format_version = "1.0"
-      }
-    }
+    # "ANY /api/ticket/reply-email" = {
+    #   integration = {
+    #     function_name = local.function_name1
+    #     type            = "AWS_PROXY"
+    #     payload_format_version = "1.0"
+    #   }
+    # }
 
-    "ANY /api/ticket/replytick" = {
-      integration = {
-        function_name = local.function_name1
-        type            = "AWS_PROXY"
-        payload_format_version = "1.0"
-      }
-    }
+    # "ANY /api/ticket/replytick" = {
+    #   integration = {
+    #     function_name = local.function_name1
+    #     type            = "AWS_PROXY"
+    #     payload_format_version = "1.0"
+    #   }
+    # }
   }
 
 
